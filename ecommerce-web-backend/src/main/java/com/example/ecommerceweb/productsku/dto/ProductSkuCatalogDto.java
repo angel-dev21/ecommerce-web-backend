@@ -1,8 +1,10 @@
 package com.example.ecommerceweb.productsku.dto;
 
-import java.util.Set;
+import java.util.List;
+
 import com.example.ecommerceweb.product.dto.ProductCatalogDto;
-import com.example.ecommerceweb.productattribute.entity.ProductAttribute;
+import com.example.ecommerceweb.productattribute.dto.ProductAttributeDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import lombok.Setter;
 public class ProductSkuCatalogDto {
 
 	private double price;
-	Set<ProductAttribute> productAttributes;
-	ProductCatalogDto productCatalogDto;
+	private List<ProductAttributeDto> productAttributeDto;
+	private ProductCatalogDto productCatalogDto;
 	
 }

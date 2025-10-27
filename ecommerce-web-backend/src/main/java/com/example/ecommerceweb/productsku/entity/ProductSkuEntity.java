@@ -1,9 +1,12 @@
 package com.example.ecommerceweb.productsku.entity;
 
 import java.util.List;
+
 import com.example.ecommerceweb.product.entity.ProductEntity;
 import com.example.ecommerceweb.productattribute.entity.ProductAttribute;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

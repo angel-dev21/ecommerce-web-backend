@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
-import com.example.ecommerceweb.product.repository.ProductRepository;
+
 import com.example.ecommerceweb.productsku.dto.ProductSkuCatalogDto;
 import com.example.ecommerceweb.productsku.entity.ProductSkuEntity;
 import com.example.ecommerceweb.productsku.mapper.ProductSkuMapper;
@@ -14,13 +15,10 @@ import com.example.ecommerceweb.productsku.repository.ProductSkuRepository;
 @Service
 public class ProductSkuService {
 
-    private final ProductRepository productRepository;
-	
 	private final ProductSkuRepository productSkuRepository;
 	
-	public ProductSkuService(ProductSkuRepository productSkuRepository, ProductRepository productRepository) {
+	public ProductSkuService(ProductSkuRepository productSkuRepository) {
 		this.productSkuRepository = productSkuRepository;
-		this.productRepository = productRepository;
 	}
 
 	public ProductSkuCatalogDto getProductSkuCatalogDtoById(long id) {
