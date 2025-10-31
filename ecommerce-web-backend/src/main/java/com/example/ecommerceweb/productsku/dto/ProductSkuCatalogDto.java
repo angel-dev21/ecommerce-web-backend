@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.ecommerceweb.productattribute.dto.ProductAttributeDto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Setter
 public class ProductSkuCatalogDto {
 
+	@NotNull
 	private double price;
 	private List<ProductAttributeDto> productAttributeDto;
 	

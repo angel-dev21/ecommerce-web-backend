@@ -1,8 +1,11 @@
 package com.example.ecommerceweb.product.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import com.example.ecommerceweb.productsku.entity.ProductSkuEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,10 +29,9 @@ public class ProductEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
-	@NotNull
+	@Column(nullable = false)
 	private long id;
-	@NotNull
+	@Column(nullable = false)
 	private String name;
 	private String description;
 	private String cover;
@@ -37,6 +39,6 @@ public class ProductEntity {
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private List<ProductSkuEntity> productSkus;
 	
-	/*@Column(name = "created_at")
-	private Date createdAt;*/
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
 }

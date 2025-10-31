@@ -13,7 +13,7 @@ import com.example.ecommerceweb.product.repository.ProductRepository;
 import com.example.ecommerceweb.product.service.ProductService;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductController {
 
 	private ProductService productService;
@@ -23,7 +23,7 @@ public class ProductController {
 	}
 	
 	
-	@GetMapping("/getCatalog")
+	@GetMapping("/Catalog")
 	public ResponseEntity<List<ProductCatalogDto>> getAllProductCatalog(){
 		return new ResponseEntity<> (productService.getAllProductCatalog(), HttpStatus.OK);
 	}

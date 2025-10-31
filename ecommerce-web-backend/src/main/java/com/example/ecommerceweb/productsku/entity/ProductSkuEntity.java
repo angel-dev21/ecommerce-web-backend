@@ -1,5 +1,6 @@
 package com.example.ecommerceweb.productsku.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.ecommerceweb.product.entity.ProductEntity;
@@ -7,6 +8,7 @@ import com.example.ecommerceweb.productattribute.entity.ProductAttribute;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,14 +36,13 @@ public class ProductSkuEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
-	@NotNull
+	@Column(nullable = false)
 	private long id;
-	@NotNull
+	@Column(nullable = false)
 	private String sku;
-	@NotNull
+	@Column(nullable = false)
 	private double price;
-	@NotNull
+	@Column(nullable = false)
 	private int quantity;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,7 +53,7 @@ public class ProductSkuEntity {
 	@JoinTable(name = "sku_attributes", joinColumns = @JoinColumn(name = "products_sku_id"), inverseJoinColumns = @JoinColumn(name = "product_attribute_id"))
 	private List<ProductAttribute> productAttribute;
 	
-	/*@Column(name = "created_at")
-	private Date createdAt;*/
+	@Column(name = "created_at")
+	private LocalDateTime createdAt;
 	
 }
