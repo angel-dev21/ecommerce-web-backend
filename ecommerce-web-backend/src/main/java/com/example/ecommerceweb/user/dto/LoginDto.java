@@ -1,7 +1,5 @@
 package com.example.ecommerceweb.user.dto;
 
-import java.time.LocalDate;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,16 +10,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDto {
-
-	private String firstName;
-	private String lastName;
+public class LoginDto {
+	
+	
 	@NotNull
 	private String username;
 	@NotNull
-	private String email;
-	@NotNull
 	private String password;
-	private LocalDate birthDate;
-	private String phoneNumber;
+	
 }

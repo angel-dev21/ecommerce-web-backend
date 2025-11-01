@@ -16,7 +16,7 @@ import com.example.ecommerceweb.product.service.ProductService;
 @RequestMapping("/product")
 public class ProductController {
 
-	private ProductService productService;
+	private final ProductService productService;
 	
 	public ProductController(ProductService productService, ProductRepository productRepository) {
 		this.productService = productService;
