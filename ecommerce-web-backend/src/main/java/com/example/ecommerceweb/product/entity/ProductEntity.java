@@ -2,6 +2,9 @@ package com.example.ecommerceweb.product.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.example.ecommerceweb.productsku.entity.ProductSkuEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -39,6 +42,7 @@ public class ProductEntity {
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY)
 	private List<ProductSkuEntity> productSkus;
 	
-	@Column(name = "created_at")
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
 	private LocalDateTime createdAt;
 }

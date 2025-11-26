@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,7 @@ public class UserController {
 	public ResponseEntity<String> loginUser(@RequestBody LoginDto loginDto) {
 		try {
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-			org.springframework.security.core.Authentication auth = authManager.authenticate(authToken);
+			Authentication auth = authManager.authenticate(authToken);
 			SecurityContextHolder.getContext().setAuthentication(auth);
 			return ResponseEntity.ok("Usuario logueado.");
 		}catch(Exception e) {

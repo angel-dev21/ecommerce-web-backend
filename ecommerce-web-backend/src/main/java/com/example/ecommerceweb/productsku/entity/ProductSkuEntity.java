@@ -3,6 +3,8 @@ package com.example.ecommerceweb.productsku.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.example.ecommerceweb.product.entity.ProductEntity;
 import com.example.ecommerceweb.productattribute.entity.ProductAttribute;
 
@@ -44,16 +46,17 @@ public class ProductSkuEntity {
 	private double price;
 	@Column(nullable = false)
 	private int quantity;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	private ProductEntity productEntity;
-	
+
 	@ManyToMany
 	@JoinTable(name = "sku_attributes", joinColumns = @JoinColumn(name = "products_sku_id"), inverseJoinColumns = @JoinColumn(name = "product_attribute_id"))
 	private List<ProductAttribute> productAttribute;
-	
-	@Column(name = "created_at")
+
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
 	private LocalDateTime createdAt;
-	
+
 }

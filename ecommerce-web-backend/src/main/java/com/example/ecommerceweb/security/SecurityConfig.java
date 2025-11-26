@@ -3,6 +3,7 @@ package com.example.ecommerceweb.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,17 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.ecommerceweb.user.service.CustomUserDetailsService;
+import com.example.ecommerceweb.security.service.UserDetailsServiceImpl;
 import com.example.ecommerceweb.user.service.UserService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private final CustomUserDetailsService customUserDetailsService;
+	private final UserDetailsServiceImpl userDetailsServiceImpl;
 	
-	public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-		this.customUserDetailsService = customUserDetailsService;
+	public SecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl) {
+		this.userDetailsServiceImpl = userDetailsServiceImpl;
 	}
 	
 	@Bean
@@ -48,9 +49,8 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	DaoAuthenticationProvider authProvider(){
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(customUserDetailsService);
-		authProvider.setPasswordEncoder(passwordEncoder());
+	AuthenticationProvider authProvider(){
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsServiceImpl);
 		return authProvider;
 	} 
 	

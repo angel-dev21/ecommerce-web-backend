@@ -3,6 +3,8 @@ package com.example.ecommerceweb.user.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.example.ecommerceweb.address.entity.AddressEntity;
 
 import jakarta.persistence.Column;
@@ -43,7 +45,12 @@ public class UserEntity {
 	private LocalDate birthDate;
 	@Column(name = "phone_number")
 	private String phoneNumber;
-	@Column(name = "created_at")
+	
+	@Column(nullable = false, columnDefinition = "user_role")
+	private Role role;
+	
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
 	private LocalDateTime createdAt;
 	
 	@OneToOne(mappedBy = "user")
