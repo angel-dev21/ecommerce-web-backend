@@ -14,19 +14,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
 public class UserDetailsImpl implements UserDetails {
-	
+
 	@Serial
 	private static final long serialVersionUID = 1L;
-	
+
 	@Getter
 	private final long id;
 	private final String username;
 	@JsonIgnore
 	private String password;
-	
+
 	private final Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(long id, String username, String password,
+			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
 		this.password = password;

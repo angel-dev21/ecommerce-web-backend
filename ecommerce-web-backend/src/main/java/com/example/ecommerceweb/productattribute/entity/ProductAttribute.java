@@ -32,7 +32,7 @@ public class ProductAttribute {
 	private long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, columnDefinition = "product_attribute_type")
+	@Column(nullable = false)
 	private ProductAttributeType type;
 	
 	@Column(nullable = false)

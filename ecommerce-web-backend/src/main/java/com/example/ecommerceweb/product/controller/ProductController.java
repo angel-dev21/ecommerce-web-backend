@@ -17,15 +17,14 @@ import com.example.ecommerceweb.product.service.ProductService;
 public class ProductController {
 
 	private final ProductService productService;
-	
+
 	public ProductController(ProductService productService, ProductRepository productRepository) {
 		this.productService = productService;
 	}
-	
-	
-	@GetMapping("/Catalog")
-	public ResponseEntity<List<ProductCatalogDto>> getAllProductCatalog(){
-		return new ResponseEntity<> (productService.getAllProductCatalog(), HttpStatus.OK);
+
+	@GetMapping("/catalog")
+	public ResponseEntity<List<ProductCatalogDto>> getAllProductCatalog() {
+		return new ResponseEntity<>(productService.getAllProductCatalog(), HttpStatus.OK);
 	}
-	
+
 }

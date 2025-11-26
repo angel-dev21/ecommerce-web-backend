@@ -1,9 +1,16 @@
 package com.example.ecommerceweb.user.service;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.ecommerceweb.security.jwt.JwtUtils;
+import com.example.ecommerceweb.user.dto.LoginDto;
 import com.example.ecommerceweb.user.dto.RegisterDto;
+import com.example.ecommerceweb.user.entity.Role;
 import com.example.ecommerceweb.user.entity.UserEntity;
 import com.example.ecommerceweb.user.repository.UserRepository;
 
@@ -12,17 +19,22 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	
-	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	private final AuthenticationManager authManager;
+	private final JwtUtils jwtUtils;
+
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+			AuthenticationManager authManager, JwtUtils jwtUtils) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.authManager = authManager;
+		this.jwtUtils = jwtUtils;
 	}
-	
+
 	public UserEntity registerUser(RegisterDto registerDto) {
-		if(userRepository.existsByEmail(registerDto.getEmail())) {
+		if (userRepository.existsByEmail(registerDto.getEmail())) {
 			throw new RuntimeException("Email ya registrado.");
 		}
-		if(userRepository.existsByUsername(registerDto.getUsername())) {
+		if (userRepository.existsByUsername(registerDto.getUsername())) {
 			throw new RuntimeException("Nombre de usuario ya registrado.");
 		}
 		UserEntity user = new UserEntity();
@@ -33,8 +45,19 @@ public class UserService {
 		user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 		user.setBirthDate(registerDto.getBirthDate());
 		user.setPhoneNumber(registerDto.getPhoneNumber());
+		user.setRole(Role.USER);
 		return userRepository.save(user);
 	}
 
-	
+	public String loginUser(LoginDto loginDto) {
+		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginDto.getUsername(),
+				loginDto.getPassword());
+		Authentication auth = authManager.authenticate(authToken);
+		if (auth.isAuthenticated()) {
+			return jwtUtils.createJwtTokenFromUsername(loginDto.getUsername());
+		} else {
+			throw new UsernameNotFoundException("Invalid request.");
+		}
+	}
+
 }

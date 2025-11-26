@@ -1,5 +1,7 @@
 package com.example.ecommerceweb.productattribute.dto;
 
+import com.example.ecommerceweb.productattribute.entity.ProductAttributeType;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class ProductAttributeDto {
 	@NotNull
-	private String type;
+	private ProductAttributeType type;
 	@NotNull
 	private String value;
 }
