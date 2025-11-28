@@ -11,6 +11,8 @@ import com.example.ecommerceweb.user.dto.RegisterDto;
 import com.example.ecommerceweb.user.entity.UserEntity;
 import com.example.ecommerceweb.user.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -22,12 +24,12 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<UserEntity> registerUser(@RequestBody RegisterDto registerDto) {
+	public ResponseEntity<UserEntity> registerUser(@Valid @RequestBody RegisterDto registerDto) {
 		return new ResponseEntity<>(userService.registerUser(registerDto), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> loginUser(@RequestBody LoginDto loginDto) {
+	public ResponseEntity<String> loginUser(@Valid @RequestBody LoginDto loginDto) {
 		return new ResponseEntity<>(userService.loginUser(loginDto), HttpStatus.OK);
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ecommerceweb.product.dto.ProductCatalogDto;
 import com.example.ecommerceweb.product.entity.ProductEntity;
@@ -19,6 +20,7 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 	
+	@Transactional(readOnly = true)
 	public List<ProductCatalogDto> getAllProductCatalog(){
 		List<ProductEntity> productEntity = productRepository.findAll();
 		List<ProductCatalogDto> productCatalogDto = productEntity.stream().map(product -> ProductMapper.productEntityToCatalogDto(product)).collect(Collectors.toList());

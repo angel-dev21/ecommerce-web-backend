@@ -13,8 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductAttributeDto {
-	@NotNull
+	@NotNull(message = "Invalid type.")
 	private ProductAttributeType type;
-	@NotNull
+	@NotNull(message = "Invalid value.")
 	private String value;
 }

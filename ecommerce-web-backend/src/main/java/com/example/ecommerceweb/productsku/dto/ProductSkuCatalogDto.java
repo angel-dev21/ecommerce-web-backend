@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class ProductSkuCatalogDto {
 
-	@NotNull
+	@NotNull(message = "Invalid price.")
 	private double price;
 	private List<ProductAttributeDto> productAttributeDto;
 	

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.ecommerceweb.productsku.dto.ProductSkuCatalogDto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class ProductCatalogDto {
 	
-	@NotNull
+	@NotEmpty(message = "Invalid name.")
 	private String name;
 	private String cover;
 	private List<ProductSkuCatalogDto> productSkuCatalogDto;

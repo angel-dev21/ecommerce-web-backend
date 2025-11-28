@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ecommerceweb.security.jwt.JwtUtils;
 import com.example.ecommerceweb.user.dto.LoginDto;
@@ -30,6 +31,7 @@ public class UserService {
 		this.jwtUtils = jwtUtils;
 	}
 
+	@Transactional
 	public UserEntity registerUser(RegisterDto registerDto) {
 		if (userRepository.existsByEmail(registerDto.getEmail())) {
 			throw new RuntimeException("Email ya registrado.");
@@ -49,6 +51,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	@Transactional
 	public String loginUser(LoginDto loginDto) {
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginDto.getUsername(),
 				loginDto.getPassword());

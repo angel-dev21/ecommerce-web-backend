@@ -2,6 +2,7 @@ package com.example.ecommerceweb.address.dto;
 
 import com.example.ecommerceweb.user.entity.UserEntity;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,19 +15,20 @@ import lombok.Setter;
 @Getter
 public class AddressDto {
 
-	@NotNull
+	@NotEmpty(message = "Invalid address.")
 	private String addressLineOne;
-	@NotNull
+	@NotEmpty(message = "Invalid address.")
 	private String addressLineTwo;
-	@NotNull
+	@NotEmpty(message = "Invalid country.")
 	private String country;
-	@NotNull
+	@NotEmpty(message = "Invalid city.")
 	private String city;
-	@NotNull
+	@NotEmpty(message = "Invalid postal code.")
 	private String postalCode;
 	private String landmark;
-	@NotNull
+	@NotEmpty(message = "Invalid phone number.")
 	private String phoneNumber;
+	@NotNull(message = "Invalid user.")
 	private UserEntity user;
 	
 }
