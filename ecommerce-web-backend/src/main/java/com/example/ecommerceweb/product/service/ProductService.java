@@ -1,8 +1,7 @@
 package com.example.ecommerceweb.product.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +20,9 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<ProductCatalogDto> getAllProductCatalog(){
-		List<ProductEntity> productEntity = productRepository.findAll();
-		List<ProductCatalogDto> productCatalogDto = productEntity.stream().map(product -> ProductMapper.productEntityToCatalogDto(product)).collect(Collectors.toList());
+	public Page<ProductCatalogDto> getAllProducts(Pageable pageable){
+		Page<ProductEntity> productEntity = productRepository.findAll(pageable);
+		Page<ProductCatalogDto> productCatalogDto = productEntity.map(product -> ProductMapper.productEntityToCatalogDto(product));
 		return productCatalogDto;
 	}
 }
