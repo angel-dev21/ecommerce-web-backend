@@ -3,26 +3,26 @@ package com.example.ecommerceweb.product.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.ecommerceweb.product.dto.ProductCatalogDto;
+import com.example.ecommerceweb.product.dto.ProductDto;
 import com.example.ecommerceweb.product.entity.ProductEntity;
 import com.example.ecommerceweb.productattribute.dto.ProductAttributeDto;
 import com.example.ecommerceweb.productattribute.entity.ProductAttribute;
-import com.example.ecommerceweb.productsku.dto.ProductSkuCatalogDto;
+import com.example.ecommerceweb.productsku.dto.ProductSkuDto;
 import com.example.ecommerceweb.productsku.entity.ProductSkuEntity;
 
 public class ProductMapper {
 	
-	public static ProductCatalogDto productEntityToCatalogDto(ProductEntity productEntity) {
-		ProductCatalogDto productCatalogDto = new ProductCatalogDto();
-		productCatalogDto.setName(productEntity.getName());
-		productCatalogDto.setCover(productEntity.getCover());
-		productCatalogDto.setProductSkuCatalogDto(productSkuToCatalogDto(productEntity.getProductSkus()));
-		return productCatalogDto;
+	public static ProductDto productEntityToDto(ProductEntity productEntity) {
+		ProductDto productDto = new ProductDto();
+		productDto.setName(productEntity.getName());
+		productDto.setCover(productEntity.getCover());
+		productDto.setProductSkuDto(productSkuToDto(productEntity.getProductSkus()));
+		return productDto;
 	}
 	
-	public static List<ProductSkuCatalogDto> productSkuToCatalogDto(List<ProductSkuEntity> productSkuEntity){
-		List<ProductSkuCatalogDto> productSkuCatalogDto = productSkuEntity.stream().map(productSku -> new ProductSkuCatalogDto(productSku.getPrice(),productAttributeToDto(productSku.getProductAttribute()))).collect(Collectors.toList());
-		return productSkuCatalogDto;
+	public static List<ProductSkuDto> productSkuToDto(List<ProductSkuEntity> productSkuEntity){
+		List<ProductSkuDto> productSkuDto = productSkuEntity.stream().map(productSku -> new ProductSkuDto(productSku.getPrice(),productAttributeToDto(productSku.getProductAttribute()))).collect(Collectors.toList());
+		return productSkuDto;
 	}
 	
 	public static List<ProductAttributeDto> productAttributeToDto(List<ProductAttribute> productAttribute) {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.ecommerceweb.user.dto.LoginDto;
 import com.example.ecommerceweb.user.dto.RegisterDto;
-import com.example.ecommerceweb.user.entity.UserEntity;
 import com.example.ecommerceweb.user.service.UserService;
 
 import jakarta.validation.Valid;
@@ -24,8 +23,9 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<UserEntity> registerUser(@Valid @RequestBody RegisterDto registerDto) {
-		return new ResponseEntity<>(userService.registerUser(registerDto), HttpStatus.CREATED);
+	public ResponseEntity<Void> registerUser(@Valid @RequestBody RegisterDto registerDto) {
+		userService.registerUser(registerDto);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")

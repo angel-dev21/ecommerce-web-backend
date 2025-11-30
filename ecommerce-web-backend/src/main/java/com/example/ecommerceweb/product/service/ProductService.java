@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.ecommerceweb.product.dto.ProductCatalogDto;
+import com.example.ecommerceweb.product.dto.ProductDto;
 import com.example.ecommerceweb.product.entity.ProductEntity;
 import com.example.ecommerceweb.product.mapper.ProductMapper;
 import com.example.ecommerceweb.product.repository.ProductRepository;
@@ -20,9 +20,9 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<ProductCatalogDto> getAllProducts(Pageable pageable){
+	public Page<ProductDto> getAllProducts(Pageable pageable){
 		Page<ProductEntity> productEntity = productRepository.findAll(pageable);
-		Page<ProductCatalogDto> productCatalogDto = productEntity.map(product -> ProductMapper.productEntityToCatalogDto(product));
-		return productCatalogDto;
+		Page<ProductDto> productDto = productEntity.map(product -> ProductMapper.productEntityToDto(product));
+		return productDto;
 	}
 }

@@ -2,7 +2,7 @@ package com.example.ecommerceweb.product.dto;
 
 import java.util.List;
 
-import com.example.ecommerceweb.productsku.dto.ProductSkuCatalogDto;
+import com.example.ecommerceweb.productsku.dto.ProductSkuDto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -14,11 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductCatalogDto {
+public class ProductDto {
 	
 	@NotEmpty(message = "Invalid name.")
 	private String name;
 	private String cover;
-	private List<ProductSkuCatalogDto> productSkuCatalogDto;
+	private List<ProductSkuDto> productSkuDto;
 
 }

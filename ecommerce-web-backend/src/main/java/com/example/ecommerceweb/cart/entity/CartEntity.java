@@ -1,11 +1,9 @@
-package com.example.ecommerceweb.product.entity;
+package com.example.ecommerceweb.cart.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import com.example.ecommerceweb.productsku.entity.ProductSkuEntity;
+import com.example.ecommerceweb.cartitem.entity.CartItemEntity;
+import com.example.ecommerceweb.user.entity.UserEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,34 +12,34 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "products")
-public class ProductEntity {
+@Table(name = "cart")
+public class CartEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private long id;
-	@Column(nullable = false)
-	private String name;
-	private String description;
-	private String cover;
-		
-	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ProductSkuEntity> productSkus;
+	private double total;
 	
-	@CreationTimestamp
-	@Column(name = "created_at", updatable = false)
-	private LocalDateTime createdAt;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", unique = true, nullable = false)
+	private UserEntity user;
+	
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+	private List<CartItemEntity> cartItem;
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.ecommerceweb.cart.entity.CartEntity;
 import com.example.ecommerceweb.security.jwt.JwtUtils;
 import com.example.ecommerceweb.user.dto.LoginDto;
 import com.example.ecommerceweb.user.dto.RegisterDto;
@@ -32,7 +33,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserEntity registerUser(RegisterDto registerDto) {
+	public void registerUser(RegisterDto registerDto) {
 		if (userRepository.existsByEmail(registerDto.getEmail())) {
 			throw new RuntimeException("Email ya registrado.");
 		}
@@ -40,6 +41,7 @@ public class UserService {
 			throw new RuntimeException("Nombre de usuario ya registrado.");
 		}
 		UserEntity user = new UserEntity();
+		CartEntity cart = new CartEntity();
 		user.setFirstName(registerDto.getFirstName());
 		user.setLastName(registerDto.getLastName());
 		user.setUsername(registerDto.getUsername());
@@ -48,7 +50,9 @@ public class UserService {
 		user.setBirthDate(registerDto.getBirthDate());
 		user.setPhoneNumber(registerDto.getPhoneNumber());
 		user.setRole(Role.USER);
-		return userRepository.save(user);
+		cart.setUser(user);
+		user.setCart(cart);
+		userRepository.save(user);
 	}
 
 	@Transactional

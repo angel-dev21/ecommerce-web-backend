@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ecommerceweb.product.dto.ProductCatalogDto;
+import com.example.ecommerceweb.product.dto.ProductDto;
 import com.example.ecommerceweb.product.repository.ProductRepository;
 import com.example.ecommerceweb.product.service.ProductService;
 
@@ -26,7 +26,7 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<ProductCatalogDto>> getAllProducts(
+	public ResponseEntity<Page<ProductDto>> getAllProducts(
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "20") int size,
 			@RequestParam(defaultValue = "id") String sortBy,

@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.example.ecommerceweb.address.entity.AddressEntity;
+import com.example.ecommerceweb.cart.entity.CartEntity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -56,7 +58,10 @@ public class UserEntity {
 	@Column(name = "created_at", updatable = false)
 	private LocalDateTime createdAt;
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private AddressEntity address;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private CartEntity cart;
 
 }

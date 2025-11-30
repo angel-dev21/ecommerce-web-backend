@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.example.ecommerceweb.cartitem.entity.CartItemEntity;
 import com.example.ecommerceweb.product.entity.ProductEntity;
 import com.example.ecommerceweb.productattribute.entity.ProductAttribute;
 
@@ -18,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -51,6 +53,9 @@ public class ProductSkuEntity {
 	@ManyToMany
 	@JoinTable(name = "sku_attributes", joinColumns = @JoinColumn(name = "products_sku_id"), inverseJoinColumns = @JoinColumn(name = "product_attribute_id"))
 	private List<ProductAttribute> productAttribute;
+	
+	@OneToMany(mappedBy = "productSkus")
+	private List<CartItemEntity> cartItem;
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
