@@ -54,7 +54,7 @@ public class ProductSkuEntity {
 	@JoinTable(name = "sku_attributes", joinColumns = @JoinColumn(name = "products_sku_id"), inverseJoinColumns = @JoinColumn(name = "product_attribute_id"))
 	private List<ProductAttribute> productAttribute;
 	
-	@OneToMany(mappedBy = "productSkus")
+	@OneToMany(mappedBy = "productSku")
 	private List<CartItemEntity> cartItem;
 
 	@CreationTimestamp

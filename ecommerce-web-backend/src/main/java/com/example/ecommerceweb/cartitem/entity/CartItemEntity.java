@@ -26,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "cart_item")
 public class CartItemEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,5 +43,5 @@ public class CartItemEntity {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "products_sku_id")
-	private ProductSkuEntity productSkus;
+	private ProductSkuEntity productSku;
 }

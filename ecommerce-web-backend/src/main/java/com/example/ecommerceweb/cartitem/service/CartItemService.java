@@ -1,0 +1,67 @@
+package com.example.ecommerceweb.cartitem.service;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.ecommerceweb.cart.entity.CartEntity;
+import com.example.ecommerceweb.cart.repository.CartRepository;
+import com.example.ecommerceweb.cartitem.dto.CartItemDto;
+import com.example.ecommerceweb.cartitem.entity.CartItemEntity;
+import com.example.ecommerceweb.cartitem.repository.CartItemRepository;
+import com.example.ecommerceweb.productsku.entity.ProductSkuEntity;
+import com.example.ecommerceweb.productsku.repository.ProductSkuRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class CartItemService {
+
+	private final CartItemRepository cartItemRepository;
+	private final ProductSkuRepository productSkuRepository;
+	private final CartRepository cartRepository;
+
+	public CartItemService(CartItemRepository cartItemRepository, ProductSkuRepository productSkuRepository,
+			CartRepository cartRepository) {
+		this.cartItemRepository = cartItemRepository;
+		this.productSkuRepository = productSkuRepository;
+		this.cartRepository = cartRepository;
+	}
+
+	@Transactional
+	public void addCartItem(CartItemDto cartItemDto) {
+		int quantity = cartItemDto.getQuantity();
+		long cartId = cartItemDto.getCartId();
+		long productSkuId = cartItemDto.getProductSkuId();
+		Optional<ProductSkuEntity> productSku = productSkuRepository.findById(productSkuId);
+		if (productSku.isEmpty()) {
+			throw new IllegalArgumentException("Product doesn't exists.");
+		}
+		if (quantity > productSku.get().getQuantity() || quantity <= 0) {
+			throw new IllegalArgumentException("Error in quantity value.");
+		}
+		Optional<CartEntity> cartEntity = cartRepository.findById(cartId);
+		if (cartEntity.isEmpty()) {
+			throw new IllegalArgumentException("Cart doesn't exists.");
+		}
+		Optional<CartItemEntity> alreadyCreated = cartItemRepository.findByCartAndProductSku(cartEntity.get(),
+				productSku.get());
+		if (alreadyCreated.isPresent()) {
+			if (quantity + alreadyCreated.get().getQuantity() > productSku.get().getQuantity()) {
+				throw new IllegalArgumentException("Error in quantity value.");
+			} else {
+				CartEntity cartCreated = alreadyCreated.get().getCart();
+				ProductSkuEntity productSkuCreated = alreadyCreated.get().getProductSku();
+				alreadyCreated.get().setQuantity(quantity + alreadyCreated.get().getQuantity());
+				cartCreated.setTotal(quantity * productSkuCreated.getPrice() + cartCreated.getTotal());
+			}
+		} else {
+			CartItemEntity cartItem = new CartItemEntity();
+			cartItem.setQuantity(quantity);
+			cartItem.setCart(cartEntity.get());
+			cartItem.setProductSku(productSku.get());
+			cartEntity.get().setTotal(quantity * productSku.get().getPrice() + cartEntity.get().getTotal());
+			cartItemRepository.save(cartItem);
+		}
+	}
+}
