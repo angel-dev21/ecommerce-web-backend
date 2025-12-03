@@ -29,7 +29,7 @@ public class CartItemService {
 	}
 
 	@Transactional
-	public void addCartItem(CartItemDto cartItemDto) {
+	public void createCartItem(CartItemDto cartItemDto) {
 		int quantity = cartItemDto.getQuantity();
 		long cartId = cartItemDto.getCartId();
 		long productSkuId = cartItemDto.getProductSkuId();
@@ -63,5 +63,58 @@ public class CartItemService {
 			cartEntity.get().setTotal(quantity * productSku.get().getPrice() + cartEntity.get().getTotal());
 			cartItemRepository.save(cartItem);
 		}
+	}
+
+	@Transactional
+	public void substractCartItem(long id) {
+		Optional<CartItemEntity> cartItem = cartItemRepository.findById(id);
+		if (cartItem.isEmpty()) {
+			throw new IllegalArgumentException("Cart Item not found.");
+		}
+		Optional<ProductSkuEntity> productSku = productSkuRepository.findById(cartItem.get().getProductSku().getId());
+		if (productSku.isEmpty()) {
+			throw new IllegalArgumentException("Product Sku not found.");
+		}
+		if (cartItem.get().getQuantity() - 1 <= 0) {
+			removeCartItem(id);
+		} else {
+			cartItem.get().setQuantity(cartItem.get().getQuantity() - 1);
+			cartItem.get().getCart().setTotal(cartItem.get().getCart().getTotal() - productSku.get().getPrice());
+		}
+	}
+
+	@Transactional
+	public void addCartItem(long id) {
+		Optional<CartItemEntity> cartItem = cartItemRepository.findById(id);
+		if (cartItem.isEmpty()) {
+			throw new IllegalArgumentException("Cart Item not found.");
+		}
+		Optional<ProductSkuEntity> productSku = productSkuRepository.findById(cartItem.get().getProductSku().getId());
+		if (productSku.isEmpty()) {
+			throw new IllegalArgumentException("Product Sku not found.");
+		}
+		if (cartItem.get().getQuantity() + 1 > productSku.get().getQuantity()) {
+			throw new IllegalArgumentException("Quantity error.");
+		} else {
+			cartItem.get().setQuantity(cartItem.get().getQuantity() + 1);
+			cartItem.get().getCart().setTotal(cartItem.get().getCart().getTotal() + productSku.get().getPrice());
+		}
+	}
+
+	@Transactional
+	public void removeCartItem(long id) {
+		Optional<CartItemEntity> cartItem = cartItemRepository.findById(id);
+		if (cartItem.isEmpty()) {
+			throw new IllegalArgumentException("Cart Item not found.");
+		}
+		Optional<ProductSkuEntity> productSku = productSkuRepository.findById(cartItem.get().getProductSku().getId());
+		if (productSku.isEmpty()) {
+			throw new IllegalArgumentException("Product Sku not found.");
+		}
+		cartItem.get().getCart().setTotal(cartItem.get().getCart().getTotal() - (cartItem.get().getQuantity() * cartItem.get().getProductSku().getPrice()));
+		if(cartItem.get().getProductSku().getPrice() <= 0) {
+			cartItem.get().getCart().setTotal(0);
+		}
+		cartItemRepository.deleteById(id);
 	}
 }
