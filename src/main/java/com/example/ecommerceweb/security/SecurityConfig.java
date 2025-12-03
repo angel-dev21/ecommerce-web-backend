@@ -33,7 +33,7 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(
-						authorize -> authorize.requestMatchers("/user/register", "/user/login", "/product").permitAll().anyRequest().authenticated())
+						authorize -> authorize.requestMatchers("/user/register", "/user/login", "/product/**").permitAll().anyRequest().authenticated())
 				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authProvider())
 				.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
