@@ -1,5 +1,6 @@
 package com.example.ecommerceweb.productsku.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ProductSkuEntity {
 	@Column(nullable = false)
 	private String sku;
 	@Column(nullable = false)
-	private double price;
+	private BigDecimal price;
 	@Column(nullable = false)
 	private int quantity;
 

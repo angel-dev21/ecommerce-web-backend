@@ -1,5 +1,6 @@
 package com.example.ecommerceweb.productsku.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.ecommerceweb.productattribute.dto.ProductAttributeDto;
@@ -17,7 +18,7 @@ import lombok.Setter;
 public class ProductSkuDto {
 
 	@NotNull(message = "Invalid price.")
-	private double price;
+	private BigDecimal price;
 	private List<ProductAttributeDto> productAttributeDto;
 	
 }

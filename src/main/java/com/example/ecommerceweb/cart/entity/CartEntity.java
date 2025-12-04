@@ -1,5 +1,6 @@
 package com.example.ecommerceweb.cart.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.ecommerceweb.cartitem.entity.CartItemEntity;
@@ -33,7 +34,7 @@ public class CartEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private long id;
-	private double total;
+	private BigDecimal total;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", unique = true, nullable = false)
