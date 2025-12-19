@@ -13,7 +13,7 @@ import com.example.ecommerceweb.user.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
 	private UserService userService;

@@ -17,7 +17,7 @@ import com.example.ecommerceweb.product.repository.ProductRepository;
 import com.example.ecommerceweb.product.service.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
 	private final ProductService productService;
