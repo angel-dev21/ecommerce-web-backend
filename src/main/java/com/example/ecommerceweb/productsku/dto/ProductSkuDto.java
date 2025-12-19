@@ -17,6 +17,8 @@ import lombok.Setter;
 @Setter
 public class ProductSkuDto {
 
+	@NotNull
+	private long id;
 	@NotNull(message = "Invalid price.")
 	private BigDecimal price;
 	private List<ProductAttributeDto> productAttributeDto;
