@@ -1,8 +1,12 @@
 package com.example.ecommerceweb.user.service;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +55,7 @@ public class UserService {
 		user.setPhoneNumber(registerDto.getPhoneNumber());
 		user.setRole(Role.USER);
 		cart.setUser(user);
+		cart.setTotal(new BigDecimal(0));
 		user.setCart(cart);
 		userRepository.save(user);
 	}
@@ -65,6 +70,12 @@ public class UserService {
 		} else {
 			throw new UsernameNotFoundException("Invalid request.");
 		}
+	}
+
+	public String getUsername()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
 	}
 
 }

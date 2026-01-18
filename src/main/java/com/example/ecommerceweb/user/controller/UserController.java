@@ -2,10 +2,7 @@ package com.example.ecommerceweb.user.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.ecommerceweb.user.dto.LoginDto;
 import com.example.ecommerceweb.user.dto.RegisterDto;
 import com.example.ecommerceweb.user.service.UserService;
@@ -31,6 +28,12 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<String> loginUser(@Valid @RequestBody LoginDto loginDto) {
 		return new ResponseEntity<>(userService.loginUser(loginDto), HttpStatus.OK);
+	}
+
+	@GetMapping("/username")
+	public ResponseEntity<String> getUsername()
+	{
+		return new ResponseEntity<>(userService.getUsername(), HttpStatus.OK);
 	}
 
 }
