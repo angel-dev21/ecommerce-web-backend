@@ -26,8 +26,6 @@ public class AddressDto {
 	@NotEmpty(message = "Invalid postal code.")
 	private String postalCode;
 	private String landmark;
-	@NotEmpty(message = "Invalid phone number.")
-	private String phoneNumber;
 	@NotNull(message = "Invalid user.")
 	private UserEntity user;
 	

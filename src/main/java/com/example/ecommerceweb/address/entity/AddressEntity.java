@@ -39,8 +39,6 @@ public class AddressEntity {
 	@Column(name = "postal_code", nullable = false)
 	private String postalCode;
 	private String landmark;
-	@Column(name = "phone_number", nullable = false)
-	private String phoneNumber;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
