@@ -30,7 +30,7 @@ public class CartItemService {
 	}
 
 	@Transactional
-	public void createCartItem(CartItemDto cartItemDto) {
+	public void addCartItem(CartItemDto cartItemDto) {
 		int quantity = cartItemDto.getQuantity();
 		long cartId = cartItemDto.getCartId();
 		long productSkuId = cartItemDto.getProductSkuId();
@@ -72,7 +72,7 @@ public class CartItemService {
 	}
 
 	@Transactional
-	public void substractCartItem(long id) {
+	public void decrementCartItem(long id) {
 		Optional<CartItemEntity> cartItem = cartItemRepository.findById(id);
 		if (cartItem.isEmpty()) {
 			throw new IllegalArgumentException("Cart Item not found.");
@@ -93,7 +93,7 @@ public class CartItemService {
 	}
 
 	@Transactional
-	public void addCartItem(long id) {
+	public void incrementCartItem(long id) {
 		Optional<CartItemEntity> cartItem = cartItemRepository.findById(id);
 		if (cartItem.isEmpty()) {
 			throw new IllegalArgumentException("Cart Item not found.");

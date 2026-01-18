@@ -22,21 +22,21 @@ public class CartItemController {
 		this.cartItemService = cartItemService;
 	}
 
-	@PostMapping("/create")
-	public ResponseEntity<Void> createCartItem(@RequestBody CartItemDto cartItemDto) {
-		cartItemService.createCartItem(cartItemDto);
+	@PostMapping("/items")
+	public ResponseEntity<Void> addCartItem(@RequestBody CartItemDto cartItemDto) {
+		cartItemService.addCartItem(cartItemDto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PostMapping("/add/{id}")
-	public ResponseEntity<Void> addCartItem(@PathVariable long id) {
-		cartItemService.addCartItem(id);
+	@PostMapping("/items/increment/{id}")
+	public ResponseEntity<Void> incrementCartItem(@PathVariable long id) {
+		cartItemService.incrementCartItem(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PostMapping("/substract/{id}")
-	public ResponseEntity<Void> substractCartItem(@PathVariable long id) {
-		cartItemService.substractCartItem(id);
+	@PostMapping("/items/decrement/{id}")
+	public ResponseEntity<Void> decrementCartItem(@PathVariable long id) {
+		cartItemService.decrementCartItem(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
