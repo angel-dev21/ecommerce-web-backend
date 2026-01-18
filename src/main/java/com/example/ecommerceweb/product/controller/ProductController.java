@@ -1,9 +1,9 @@
 package com.example.ecommerceweb.product.controller;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +27,13 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<ProductDto>> getAllProducts(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "20") int size, @RequestParam(defaultValue = "id") String sortBy,
+	public ResponseEntity<PagedModel<ProductDto>> getAllProducts(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "4") int size, @RequestParam(defaultValue = "id") String sortBy,
 			@RequestParam(defaultValue = "true") boolean order) {
 		Sort sort = order ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 		Pageable pageable = PageRequest.of(page, size, sort);
-		return new ResponseEntity<>(productService.getAllProducts(pageable), HttpStatus.OK);
+		PagedModel<ProductDto> pagedModel = new PagedModel<>(productService.getAllProducts(pageable));
+		return new ResponseEntity<>(pagedModel, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
