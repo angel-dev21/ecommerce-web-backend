@@ -36,7 +36,7 @@ public class ProductEntity {
 	@Column(nullable = false)
 	private String name;
 	private String description;
-	private String cover;
+	private String brand;
 		
 	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ProductSkuEntity> productSkus;

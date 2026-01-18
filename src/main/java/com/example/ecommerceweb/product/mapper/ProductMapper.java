@@ -16,13 +16,13 @@ public class ProductMapper {
 		ProductDto productDto = new ProductDto();
 		productDto.setId(productEntity.getId());
 		productDto.setName(productEntity.getName());
-		productDto.setCover(productEntity.getCover());
+		productDto.setBrand(productEntity.getBrand());
 		productDto.setProductSkuDto(productSkuToDto(productEntity.getProductSkus()));
 		return productDto;
 	}
 	
 	public static List<ProductSkuDto> productSkuToDto(List<ProductSkuEntity> productSkuEntity){
-		List<ProductSkuDto> productSkuDto = productSkuEntity.stream().map(productSku -> new ProductSkuDto(productSku.getId(),productSku.getPrice(),productAttributeToDto(productSku.getProductAttribute()))).collect(Collectors.toList());
+		List<ProductSkuDto> productSkuDto = productSkuEntity.stream().map(productSku -> new ProductSkuDto(productSku.getId(),productSku.getPrice(), productSku.getCover(),productAttributeToDto(productSku.getProductAttribute()))).collect(Collectors.toList());
 		return productSkuDto;
 	}
 	

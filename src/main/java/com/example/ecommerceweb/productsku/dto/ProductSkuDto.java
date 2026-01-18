@@ -21,6 +21,7 @@ public class ProductSkuDto {
 	private long id;
 	@NotNull(message = "Invalid price.")
 	private BigDecimal price;
+	private String cover;
 	private List<ProductAttributeDto> productAttributeDto;
 	
 }

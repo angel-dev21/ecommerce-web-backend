@@ -46,6 +46,7 @@ public class ProductSkuEntity {
 	private BigDecimal price;
 	@Column(nullable = false)
 	private int quantity;
+	private String cover;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")

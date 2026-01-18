@@ -21,7 +21,7 @@ public class ProductDto {
 	private long id;
 	@NotEmpty(message = "Invalid name.")
 	private String name;
-	private String cover;
+	private String brand;
 	private List<ProductSkuDto> productSkuDto;
 
 }
