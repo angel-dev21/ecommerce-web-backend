@@ -1,6 +1,7 @@
 package com.example.ecommerceweb.user.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class LoginDto {
 	private String username;
 	@NotEmpty(message = "Invalid password.")
 	@Size(min = 8, max = 20, message = "Invalid password size.")
+	@Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$", message = "Invalid password format.")
 	private String password;
 	
 }

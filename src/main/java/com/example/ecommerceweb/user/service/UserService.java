@@ -1,6 +1,7 @@
 package com.example.ecommerceweb.user.service;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,13 +47,25 @@ public class UserService {
 		}
 		UserEntity user = new UserEntity();
 		CartEntity cart = new CartEntity();
-		user.setFirstName(registerDto.getFirstName());
-		user.setLastName(registerDto.getLastName());
+        if (Objects.equals(registerDto.getFirstName(), "")) {
+            user.setFirstName(null);
+        } else {
+            user.setFirstName(registerDto.getFirstName());
+        }
+		if (Objects.equals(registerDto.getLastName(), "")) {
+			user.setLastName(null);
+		} else {
+			user.setLastName(registerDto.getLastName());
+		}
 		user.setUsername(registerDto.getUsername());
 		user.setEmail(registerDto.getEmail());
 		user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 		user.setBirthDate(registerDto.getBirthDate());
-		user.setPhoneNumber(registerDto.getPhoneNumber());
+		if (Objects.equals(registerDto.getPhoneNumber(), "")) {
+			user.setPhoneNumber(null);
+		} else {
+			user.setPhoneNumber(registerDto.getPhoneNumber());
+		}
 		user.setRole(Role.USER);
 		cart.setUser(user);
 		cart.setTotal(new BigDecimal(0));
