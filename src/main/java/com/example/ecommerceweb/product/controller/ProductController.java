@@ -1,5 +1,6 @@
 package com.example.ecommerceweb.product.controller;
 
+import com.example.ecommerceweb.product.dto.ProductDetailDto;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -39,6 +40,11 @@ public class ProductController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductDto> getProductById(@PathVariable long id) {
 		return new ResponseEntity<ProductDto>(productService.getProduct(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/detail/{id}")
+	public ResponseEntity<ProductDetailDto> getProductDetailById(@PathVariable long id) {
+		return new ResponseEntity<ProductDetailDto>(productService.getProductDetail(id), HttpStatus.OK);
 	}
 
 }

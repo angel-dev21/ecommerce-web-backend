@@ -3,6 +3,7 @@ package com.example.ecommerceweb.product.mapper;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.ecommerceweb.product.dto.ProductDetailDto;
 import com.example.ecommerceweb.product.dto.ProductDto;
 import com.example.ecommerceweb.product.entity.ProductEntity;
 import com.example.ecommerceweb.productattribute.dto.ProductAttributeDto;
@@ -30,5 +31,9 @@ public class ProductMapper {
 		List<ProductAttributeDto> productAttributeDto = productAttribute.stream().map(productAtt -> new ProductAttributeDto(productAtt.getType(),productAtt.getValue())).collect(Collectors.toList());
 		return productAttributeDto;
 	}
-	
+
+	public static ProductDetailDto productEntityToDetailDto(ProductEntity productEntity) {
+		ProductDetailDto productDetailDto = new ProductDetailDto(productEntity.getId(),productEntity.getName(),productEntity.getDescription(),productEntity.getBrand(),productSkuToDto(productEntity.getProductSkus()));
+		return productDetailDto;
+	}
 }

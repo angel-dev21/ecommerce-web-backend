@@ -2,6 +2,7 @@ package com.example.ecommerceweb.product.service;
 
 import java.util.Optional;
 
+import com.example.ecommerceweb.product.dto.ProductDetailDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,15 @@ public class ProductService {
 		}
 		ProductDto productDto = ProductMapper.productEntityToDto(product.get());
 		return productDto;
+	}
+
+	@Transactional
+	public ProductDetailDto getProductDetail(long id) {
+		Optional<ProductEntity> product = productRepository.findById(id);
+		if (product.isEmpty()) {
+			throw new IllegalArgumentException("Product not found");
+		}
+		ProductDetailDto productDetailDto = ProductMapper.productEntityToDetailDto(product.get());
+		return productDetailDto;
 	}
 }
